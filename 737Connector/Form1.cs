@@ -73,6 +73,22 @@ namespace _737Connector
         // SimConnect object 
         SimConnect simconnect = null;
 
+
+        enum DATA_REQUEST_ID
+        {
+            DATA_REQUEST,
+            CONTROL_REQUEST,
+            AIR_PATH_REQUEST
+        };
+
+        enum CLIENT_DATA_IDS
+        {
+            PMDG_NGX_DATA_ID = 0x4E477831,
+            PMDG_NGX_DATA_DEFINITION = 0x4E477832,
+            PMDG_NGX_CONTROL_ID = 0x4E477833,
+            PMDG_NGX_CONTROL_DEFINITION = 0x4E477834,
+        };
+
         enum EVENTS
         {
             PITOT_TOGGLE,
@@ -268,6 +284,8 @@ namespace _737Connector
                     setButtons(false, true);
 
                     initClientEvent();
+                    PrepareToRecieve();
+                    
 
                 }
                 catch (COMException ex)
@@ -293,6 +311,27 @@ namespace _737Connector
         private void button1_Click(object sender, EventArgs e)
         {
             simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENTS.EVT_OH_YAW_DAMPER, 1, SCWrapper.GROUP_PRIORITY.SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        }
+
+        private void PrepareToRecieve()
+        {
+            simconnect.MapClientDataNameToID("PMDG_NGX_Data", CLIENT_DATA_IDS.PMDG_NGX_DATA_ID);
+            simconnect.AddToClientDataDefinition(CLIENT_DATA_IDS.PMDG_NGX_DATA_DEFINITION, 0, (uint)Marshal.SizeOf(typeof(PMDG.PMDG_NGX_Data)), 0.0f, SimConnect.SIMCONNECT_UNUSED);
+            simconnect.RequestClientData(CLIENT_DATA_IDS.PMDG_NGX_DATA_ID, DATA_REQUEST_ID.DATA_REQUEST, CLIENT_DATA_IDS.PMDG_NGX_DATA_DEFINITION, SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET, SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED, 0, 0, 0);
+            simconnect.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, PMDG.PMDG_NGX_Data>(CLIENT_DATA_IDS.PMDG_NGX_DATA_DEFINITION);
+            simconnect.OnRecvClientData += simconnect_RecvClientDataEvent;
+        }
+
+        void simconnect_RecvClientDataEvent(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
+        {
+
+            switch ((DATA_REQUEST_ID)data.dwRequestID)
+            {
+                case DATA_REQUEST_ID.DATA_REQUEST:
+                    PMDG.PMDG_NGX_Data s1 = (PMDG.PMDG_NGX_Data)data.dwData[0];
+                    Console.WriteLine(s1.MCP_Heading);
+                    break;
+            }
         }
     }
 
