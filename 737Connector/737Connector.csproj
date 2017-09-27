@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSUIPCClient">
+      <HintPath>..\..\..\..\Desktop\DLL\4.0 Framework\FSUIPCClient.dll</HintPath>
+    </Reference>
+    <Reference Include="LockheedMartin.Prepar3D.SimConnect">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Lockheed Martin\Prepar3D v3 SDK 3.4.22.19868\Utilities\SimConnect SDK\lib\managed\LockheedMartin.Prepar3D.SimConnect.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,8 +57,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="PMDG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCWrapper.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -1,0 +1,13 @@
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\bin\Debug\737Connector.exe.config
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\bin\Debug\737Connector.exe
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\bin\Debug\737Connector.pdb
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\bin\Debug\FSUIPCClient.dll
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\bin\Debug\LockheedMartin.Prepar3D.SimConnect.dll
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\bin\Debug\FSUIPCClient.xml
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\obj\Debug\737Connector.csprojResolveAssemblyReference.cache
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\obj\Debug\_737Connector.Properties.Resources.resources
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\obj\Debug\737Connector.csproj.GenerateResource.Cache
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\obj\Debug\737Connector.csproj.CoreCompileInputs.cache
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\obj\Debug\737Connector.exe
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\obj\Debug\737Connector.pdb
+C:\Users\Gustaw\Source\Repos\home-cockpit\737Connector\obj\Debug\_737Connector.Form1.resources
