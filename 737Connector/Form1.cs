@@ -292,7 +292,7 @@ namespace _737Connector
 
         private void button1_Click(object sender, EventArgs e)
         {
-            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENTS.EVT_OH_YAW_DAMPER, , SCWrapper.GROUP_PRIORITY.SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENTS.EVT_OH_YAW_DAMPER, 1, SCWrapper.GROUP_PRIORITY.SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
         }
     }
 
