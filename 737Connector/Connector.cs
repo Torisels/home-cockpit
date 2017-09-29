@@ -100,14 +100,13 @@ namespace _737Connector
         void simconnect_RecvClientDataEvent(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
         {
 
-            switch ((DATA_REQUEST_ID)data.dwRequestID)
-            {
-                case DATA_REQUEST_ID.DATA_REQUEST:
+           // switch ((DATA_REQUEST_ID)data.dwRequestID)
+          //  {
+             //   case DATA_REQUEST_ID.DATA_REQUEST:
                     PMDG.PMDG_NGX_Data s1 = (PMDG.PMDG_NGX_Data)data.dwData[0];
-                    Console.WriteLine(s1.MCP_Altitude);
                     _setTextInvoker(Form1.UiChanger.textBoxMcpAlt,s1.MCP_Altitude.ToString());
-                    break;
-            }
+                //    break;
+           // }
         }
 
 

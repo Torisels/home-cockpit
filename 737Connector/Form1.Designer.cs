@@ -35,6 +35,8 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.textBoxMcpAlt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBoxEventEnter = new System.Windows.Forms.TextBox();
+            this.buttonSendEventTextBox = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richResponse
@@ -77,7 +79,7 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 127);
+            this.richTextBox1.Location = new System.Drawing.Point(15, 127);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(415, 29);
             this.richTextBox1.TabIndex = 6;
@@ -99,11 +101,31 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "MCP Altitude:";
             // 
+            // textBoxEventEnter
+            // 
+            this.textBoxEventEnter.Location = new System.Drawing.Point(15, 203);
+            this.textBoxEventEnter.Name = "textBoxEventEnter";
+            this.textBoxEventEnter.Size = new System.Drawing.Size(207, 20);
+            this.textBoxEventEnter.TabIndex = 9;
+            this.textBoxEventEnter.Text = "70010 1";
+            // 
+            // buttonSendEventTextBox
+            // 
+            this.buttonSendEventTextBox.Location = new System.Drawing.Point(243, 201);
+            this.buttonSendEventTextBox.Name = "buttonSendEventTextBox";
+            this.buttonSendEventTextBox.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendEventTextBox.TabIndex = 10;
+            this.buttonSendEventTextBox.Text = "button1";
+            this.buttonSendEventTextBox.UseVisualStyleBackColor = true;
+            this.buttonSendEventTextBox.Click += new System.EventHandler(this.buttonSendEventTextBox_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(738, 479);
+            this.Controls.Add(this.buttonSendEventTextBox);
+            this.Controls.Add(this.textBoxEventEnter);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxMcpAlt);
             this.Controls.Add(this.richTextBox1);
@@ -126,6 +148,8 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textBoxMcpAlt;
+        private System.Windows.Forms.TextBox textBoxEventEnter;
+        private System.Windows.Forms.Button buttonSendEventTextBox;
     }
 }
 

@@ -32,10 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FSUIPCClient">
-      <HintPath>..\..\..\..\Desktop\DLL\4.0 Framework\FSUIPCClient.dll</HintPath>
-    </Reference>
-    <Reference Include="LockheedMartin.Prepar3D.SimConnect">
+    <Reference Include="LockheedMartin.Prepar3D.SimConnect, Version=4.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Lockheed Martin\Prepar3D v3 SDK 3.4.22.19868\Utilities\SimConnect SDK\lib\managed\LockheedMartin.Prepar3D.SimConnect.dll</HintPath>
     </Reference>
     <Reference Include="System" />

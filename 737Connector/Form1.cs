@@ -285,7 +285,7 @@ namespace _737Connector
 
         private void buttonSendEvent_Click(object sender, EventArgs e)
         {
-            connector.SendEvent(PMDG.PMDGEvents.EVT_OH_YAW_DAMPER,(uint)Connector.MOUSE_EVENTS.MOUSE_FLAG_LEFTSINGLE);
+            connector.SendEvent(PMDG.PMDGEvents.EVT_MCP_FD_SWITCH_L,(uint)Connector.MOUSE_EVENTS.MOUSE_FLAG_LEFTSINGLE);
         }
 
         private void buttonDisconnect_Click(object sender, EventArgs e)
@@ -293,12 +293,12 @@ namespace _737Connector
             closeConnection();
         }
 
-        public void SetText(TextBox TxtBox, string text)
+        public void SetText(TextBox txtBox, string text)
         {
-            if (TxtBox.InvokeRequired)
+            if (txtBox.InvokeRequired)
             {
                 Action<TextBox, string> method = SetText;
-                UiChanger.BeginInvoke(method, TxtBox, text);
+                UiChanger.BeginInvoke(method, txtBox, text);
             }
             else
             {
@@ -308,6 +308,15 @@ namespace _737Connector
             }
         }
 
+        private void buttonSendEventTextBox_Click(object sender, EventArgs e)
+        {
+         //   var splitted = textBoxEventEnter.Text.Split(' ');
+            int evet = Convert.ToInt32(textBoxEventEnter.Text);
+           // int val = Convert.ToInt16(splitted[1]);
+            //Console.WriteLine(evet+" "+val);
+            connector.SendEvent((PMDG.PMDGEvents)evet, (uint)Connector.MOUSE_EVENTS.MOUSE_FLAG_LEFTSINGLE);
+
+        }
     }
 
 
