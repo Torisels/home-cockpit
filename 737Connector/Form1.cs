@@ -1,78 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using FSUIPC;
 using LockheedMartin.Prepar3D.SimConnect;
 using System.Runtime.InteropServices;
 
 
 namespace _737Connector
 {
-    //    public partial class Form1 : Form
-    //    {
-    //        SimConnect _simconnect = null;
-    //        const int WM_USER_SIMCONNECT = 0x0402;
-    //       
-    //        enum EVENT_ID
-    //        {
-    //            EVT_OH_YAW_DAMPER = 69632 + 63
-    //        };
-    //        enum GROUP_ID
-    //        {
-    //            GROUP_1,
-    //        };
-    //
-    //        public Form1()
-    //        {
-    //            InitializeComponent();
-    //        }
-    //
-    //
-    //        public void SimConnectOpen()
-    //        {
-    //            try
-    //            {
-    //                _simconnect = new SimConnect("PMDG NGX Test", this.Handle, 0, null, 0);
-    //                _simconnect.MapClientDataNameToID(PMDG.PMDG_NGX_DATA_NAME,PMDG.IDs.PMDG_NGX_DATA_ID);
-    //                _simconnect.RequestClientData(PMDG.IDs.PMDG_NGX_DATA_ID,PMDG.DATA_REQUEST_ID.DATA_REQUEST,PMDG.IDs.PMDG_NGX_DATA_DEFINITION,SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET, SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED, 0,0,0);
-    //                _simconnect.MapClientEventToSimEvent(EVENT_ID.EVT_OH_YAW_DAMPER, "#69695");
-    //                _simconnect.TransmitClientEvent(0, EVENT_ID.EVT_OH_YAW_DAMPER, 1, SCWrapper.GROUP_PRIORITY.SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-    //                //  _simconnect.MapClientEventToSimEvent(EVENT_ID.EVT_OH_YAW_DAMPER,"#69695");
-    //                //  _simconnect.AddClientEventToNotificationGroup(GROUP_ID.GROUP_1, EVENT_ID.EVT_OH_YAW_DAMPER, false);
-    //                // _simconnect.TransmitClientEvent(0,EVENT_ID.EVT_OH_YAW_DAMPER,1, GROUP_ID.GROUP_1, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-    //                while (true)
-    //                {
-    //                    _simconnect.ReceiveDispatch();
-    //                }
-    //            }
-    //            catch (COMException ex)
-    //            {
-    //                Console.WriteLine(ex.Message);
-    //                // A connection to the SimConnect server could not be established 
-    //            }
-    //        }
-    //
-    //        private void button2_Click(object sender, EventArgs e)
-    //        {
-    //            _simconnect.TransmitClientEvent(0, EVENT_ID.EVT_OH_YAW_DAMPER, 1, SCWrapper.GROUP_PRIORITY.SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-    //        }
-    //    }
-
     public partial class Form1 : Form
     {
+        public static Form1 UiChanger;
 
         // User-defined win32 event 
         const int WM_USER_SIMCONNECT = 0x0402;
 
         // SimConnect object 
-        SimConnect simconnect = null;
-
+        private SimConnect simconnect = null;
+        private Connector connector = null;
 
         enum DATA_REQUEST_ID
         {
@@ -105,10 +48,9 @@ namespace _737Connector
         }
 
         public Form1()
-        {
-            InitializeComponent();
-
-            setButtons(true, false);
+        { 
+           InitializeComponent();
+            UiChanger = this;
         }
         // Simconnect client will send a win32 message when there is 
         // a packet to process. ReceiveMessage must be called to 
@@ -118,10 +60,7 @@ namespace _737Connector
         {
             if (m.Msg == WM_USER_SIMCONNECT)
             {
-                if (simconnect != null)
-                {
-                    simconnect.ReceiveMessage();
-                }
+                simconnect?.ReceiveMessage();
             }
             else
             {
@@ -170,7 +109,6 @@ namespace _737Connector
                 simconnect.AddClientEventToNotificationGroup(NOTIFICATION_GROUPS.GROUP0, EVENTS.EVT_OH_YAW_DAMPER, false);
                 // subscribe to all four flaps controls 
 
-                simconnect.TransmitClientEvent(1, EVENTS.EVT_OH_YAW_DAMPER, 1, SCWrapper.GROUP_PRIORITY.SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                 simconnect.MapClientEventToSimEvent(EVENTS.FLAPS_UP, "FLAPS_UP");
                 simconnect.AddClientEventToNotificationGroup(NOTIFICATION_GROUPS.GROUP0, EVENTS.FLAPS_UP, false);
                 simconnect.MapClientEventToSimEvent(EVENTS.FLAPS_DOWN, "FLAPS_DOWN");
@@ -244,16 +182,8 @@ namespace _737Connector
             closeConnection();
         }
 
-        private void buttonConnect_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void buttonDisconnect_Click(object sender, EventArgs e)
-        {
-          
-        }
-
+     
         // Response number 
         int response = 1;
 
@@ -302,17 +232,6 @@ namespace _737Connector
             }
         }
 
-        private void buttonDisconnect_Click_1(object sender, EventArgs e)
-        {
-            closeConnection();
-            setButtons(true, false);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENTS.EVT_OH_YAW_DAMPER, 1, SCWrapper.GROUP_PRIORITY.SIMCONNECT_GROUP_PRIORITY_HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-        }
-
         private void PrepareToRecieve()
         {
             simconnect.MapClientDataNameToID("PMDG_NGX_Data", CLIENT_DATA_IDS.PMDG_NGX_DATA_ID);
@@ -333,6 +252,62 @@ namespace _737Connector
                     break;
             }
         }
+
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            if (simconnect == null)
+            {
+                try
+                {
+                    // the constructor is similar to SimConnect_Open in the native API 
+                    simconnect = new SimConnect("Managed Client Events", this.Handle, WM_USER_SIMCONNECT, null, 0);
+
+                    simconnect.OnRecvOpen += simconnect_OnRecvOpen;
+                    simconnect.OnRecvQuit += simconnect_OnRecvQuit;
+
+                    // listen to exceptions 
+                    simconnect.OnRecvException += simconnect_OnRecvException;
+
+                    connector = new Connector(simconnect, SetText);
+
+                }
+                catch (COMException ex)
+                {
+                    displayText("Unable to connect to Prepar3D " + ex.Message);
+                }
+            }
+            else
+            {
+                displayText("Error - try again");
+                closeConnection();
+            }
+        }
+
+        private void buttonSendEvent_Click(object sender, EventArgs e)
+        {
+            connector.SendEvent(PMDG.PMDGEvents.EVT_OH_YAW_DAMPER,(uint)Connector.MOUSE_EVENTS.MOUSE_FLAG_LEFTSINGLE);
+        }
+
+        private void buttonDisconnect_Click(object sender, EventArgs e)
+        {
+            closeConnection();
+        }
+
+        public void SetText(TextBox TxtBox, string text)
+        {
+            if (TxtBox.InvokeRequired)
+            {
+                Action<TextBox, string> method = SetText;
+                UiChanger.BeginInvoke(method, TxtBox, text);
+            }
+            else
+            {
+                UiChanger.textBoxMcpAlt.Text =text ;
+                UiChanger.textBoxMcpAlt.SelectionStart = UiChanger.textBoxMcpAlt.Text.Length;
+                UiChanger.textBoxMcpAlt.ScrollToCaret();
+            }
+        }
+
     }
 
 

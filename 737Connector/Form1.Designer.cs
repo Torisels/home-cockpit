@@ -28,72 +28,104 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.richResponse = new System.Windows.Forms.RichTextBox();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonDisconnect = new System.Windows.Forms.Button();
-            this.richResponse = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSendEvent = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.textBoxMcpAlt = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // buttonConnect
-            // 
-            this.buttonConnect.Location = new System.Drawing.Point(12, 59);
-            this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.buttonConnect.Size = new System.Drawing.Size(75, 21);
-            this.buttonConnect.TabIndex = 0;
-            this.buttonConnect.Text = "button1";
-            this.buttonConnect.UseVisualStyleBackColor = true;
-            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click_1);
-            // 
-            // buttonDisconnect
-            // 
-            this.buttonDisconnect.Location = new System.Drawing.Point(134, 59);
-            this.buttonDisconnect.Name = "buttonDisconnect";
-            this.buttonDisconnect.Size = new System.Drawing.Size(75, 23);
-            this.buttonDisconnect.TabIndex = 1;
-            this.buttonDisconnect.Text = "button2";
-            this.buttonDisconnect.UseVisualStyleBackColor = true;
-            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click_1);
             // 
             // richResponse
             // 
-            this.richResponse.Location = new System.Drawing.Point(79, 121);
+            this.richResponse.Location = new System.Drawing.Point(12, 12);
             this.richResponse.Name = "richResponse";
-            this.richResponse.Size = new System.Drawing.Size(100, 96);
+            this.richResponse.Size = new System.Drawing.Size(260, 96);
             this.richResponse.TabIndex = 2;
             this.richResponse.Text = "";
             // 
-            // button1
+            // buttonConnect
             // 
-            this.button1.Location = new System.Drawing.Point(197, 108);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonConnect.Location = new System.Drawing.Point(570, 444);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(75, 23);
+            this.buttonConnect.TabIndex = 3;
+            this.buttonConnect.Text = "Connect";
+            this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+            // 
+            // buttonDisconnect
+            // 
+            this.buttonDisconnect.Location = new System.Drawing.Point(651, 444);
+            this.buttonDisconnect.Name = "buttonDisconnect";
+            this.buttonDisconnect.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisconnect.TabIndex = 4;
+            this.buttonDisconnect.Text = "Disconnect";
+            this.buttonDisconnect.UseVisualStyleBackColor = true;
+            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
+            // 
+            // buttonSendEvent
+            // 
+            this.buttonSendEvent.Location = new System.Drawing.Point(12, 444);
+            this.buttonSendEvent.Name = "buttonSendEvent";
+            this.buttonSendEvent.Size = new System.Drawing.Size(75, 23);
+            this.buttonSendEvent.TabIndex = 5;
+            this.buttonSendEvent.Text = "Send Event";
+            this.buttonSendEvent.UseVisualStyleBackColor = true;
+            this.buttonSendEvent.Click += new System.EventHandler(this.buttonSendEvent_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(12, 127);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(415, 29);
+            this.richTextBox1.TabIndex = 6;
+            this.richTextBox1.Text = "";
+            // 
+            // textBoxMcpAlt
+            // 
+            this.textBoxMcpAlt.Location = new System.Drawing.Point(89, 162);
+            this.textBoxMcpAlt.Name = "textBoxMcpAlt";
+            this.textBoxMcpAlt.Size = new System.Drawing.Size(100, 20);
+            this.textBoxMcpAlt.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 165);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "MCP Altitude:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.richResponse);
+            this.ClientSize = new System.Drawing.Size(738, 479);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBoxMcpAlt);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.buttonSendEvent);
             this.Controls.Add(this.buttonDisconnect);
             this.Controls.Add(this.buttonConnect);
+            this.Controls.Add(this.richResponse);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
+        private System.Windows.Forms.RichTextBox richResponse;
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.Button buttonDisconnect;
-        private System.Windows.Forms.RichTextBox richResponse;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSendEvent;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox textBoxMcpAlt;
     }
 }
 
