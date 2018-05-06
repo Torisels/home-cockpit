@@ -37,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxEventEnter = new System.Windows.Forms.TextBox();
             this.buttonSendEventTextBox = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // richResponse
@@ -119,11 +120,22 @@
             this.buttonSendEventTextBox.UseVisualStyleBackColor = true;
             this.buttonSendEventTextBox.Click += new System.EventHandler(this.buttonSendEventTextBox_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(476, 444);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Connect";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(738, 479);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonSendEventTextBox);
             this.Controls.Add(this.textBoxEventEnter);
             this.Controls.Add(this.label1);
@@ -150,6 +162,7 @@
         public System.Windows.Forms.TextBox textBoxMcpAlt;
         private System.Windows.Forms.TextBox textBoxEventEnter;
         private System.Windows.Forms.Button buttonSendEventTextBox;
+        private System.Windows.Forms.Button button1;
     }
 }
 

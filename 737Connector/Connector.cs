@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,13 +17,15 @@ namespace _737Connector
 
         private readonly TextInvokerDelegate _setTextInvoker;
 
+        private SerialPort port = new SerialPort("COM3", 9600);
+
         private enum NOTIFICATION_GROUPS
         {
             MAINGROUP
         }
         enum DATA_REQUEST_ID
         {
-            DATA_REQUEST,
+            DATA_REQUEST
         }
         enum CLIENT_DATA_IDS
         {
@@ -58,6 +61,7 @@ namespace _737Connector
 
         public Connector(SimConnect sc, TextInvokerDelegate setTextInvoker)
         {
+            port.Open();
             _setTextInvoker = setTextInvoker;
             try
             {
@@ -105,11 +109,20 @@ namespace _737Connector
              //   case DATA_REQUEST_ID.DATA_REQUEST:
                     PMDG.PMDG_NGX_Data s1 = (PMDG.PMDG_NGX_Data)data.dwData[0];
                     _setTextInvoker(Form1.UiChanger.textBoxMcpAlt,s1.MCP_Altitude.ToString());
+                    port.Write(IntStringToByte(s1.MCP_Altitude.ToString()),0,5);
                 //    break;
            // }
         }
 
-
+        public static byte[] IntStringToByte(string s)
+        {
+            byte[] ret = new byte[s.Length];
+            for (int i = 0; i < s.Length; i++)
+            {
+                ret[i] = Convert.ToByte(s[i]-'0');
+            }
+            return ret;
+        }
 
     }
 }

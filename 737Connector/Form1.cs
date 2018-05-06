@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Ports;
 using System.Windows.Forms;
 using LockheedMartin.Prepar3D.SimConnect;
 using System.Runtime.InteropServices;
@@ -16,6 +17,9 @@ namespace _737Connector
         // SimConnect object 
         private SimConnect simconnect = null;
         private Connector connector = null;
+
+
+//        private SerialPort port = new SerialPort("COM3",9600);
 
         enum DATA_REQUEST_ID
         {
@@ -51,6 +55,7 @@ namespace _737Connector
         { 
            InitializeComponent();
             UiChanger = this;
+//            port.Open();
         }
         // Simconnect client will send a win32 message when there is 
         // a packet to process. ReceiveMessage must be called to 
@@ -315,6 +320,16 @@ namespace _737Connector
            // int val = Convert.ToInt16(splitted[1]);
             //Console.WriteLine(evet+" "+val);
             connector.SendEvent((PMDG.PMDGEvents)evet, (uint)Connector.MOUSE_EVENTS.MOUSE_FLAG_LEFTSINGLE);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
+            byte[] a = Connector.StringToByte("12345");
+//            port.Write(a, 0, 5);
+            //            string hexValue = $"{a[2]:X}";
+            //            Console.WriteLine(hexValue);
 
         }
     }
