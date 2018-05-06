@@ -124,5 +124,35 @@ namespace _737Connector
             return ret;
         }
 
+        public static byte[] EncodeDigits(string s)
+        {
+            int len = s.Length;
+            if (len % 2 == 1)
+            {
+                len++;
+                s += "0";
+            }
+            byte[] ret = new byte[len/2];
+            for (int i = 0; i < len; i++)
+            {
+                byte a = Encode((s[i] - '0'), s[i + 1] - '0');
+                ret[i] = a;
+                i++;
+            }
+            return ret;
+        }
+
+
+
+        public static byte Encode(int first, int second)
+        {
+            return Convert.ToByte((first << 4) | second);
+        }
+
+        public int[] Decode(int todecode)
+        {
+            return new[] { todecode >> 4, todecode & 0b00001111 };
+        }
+
     }
 }
