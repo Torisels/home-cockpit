@@ -13,11 +13,15 @@ namespace _737Connector
     class Connector
     {
         private SimConnect _simConnect;
+
+        //delegate definitions
         public delegate void TextInvokerDelegate(TextBox tb, string s);
-
+        public delegate void RichTextBoxInvokerDelegate(RichTextBox Rtb, string s);
+        //delegate initializations
         private readonly TextInvokerDelegate _setTextInvoker;
+        private readonly RichTextBoxInvokerDelegate _setRichTextBoxInvoker;
 
-        private SerialPort port = new SerialPort("COM3", 9600);
+       
 
         private enum NOTIFICATION_GROUPS
         {
@@ -59,15 +63,15 @@ namespace _737Connector
 
 
 
-        public Connector(SimConnect sc, TextInvokerDelegate setTextInvoker)
+        public Connector(SimConnect sc, TextInvokerDelegate setTextInvoker,RichTextBoxInvokerDelegate rd)
         {
-            port.Open();
             _setTextInvoker = setTextInvoker;
+            _setRichTextBoxInvoker = rd;
             try
             {
                 _simConnect = sc;
-                InitRecieve();
-                RegisterEvents();
+                InitRecieve();//Initalize reciever
+                RegisterEvents();//Register all events
             }
             catch (Exception e)
             {
@@ -75,23 +79,6 @@ namespace _737Connector
                 throw new Exception("ERROR WHEN INIT SIMCONNECT");
             }
         }
-
-
-        public void SendEvent(PMDG.PMDGEvents evnt, uint value)
-        {
-            _simConnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, evnt, value, PMDG.SIMCONNECT_GROUP_PRIORITY.HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-        }
-
-        public void RegisterEvents()
-        {
-            foreach (PMDG.PMDGEvents evnt in Enum.GetValues(typeof(PMDG.PMDGEvents)))
-            {
-                _simConnect.MapClientEventToSimEvent(evnt, $"#{(int) evnt}");
-                _simConnect.AddClientEventToNotificationGroup(NOTIFICATION_GROUPS.MAINGROUP, evnt, false);
-            }
-            _simConnect.SetNotificationGroupPriority(NOTIFICATION_GROUPS.MAINGROUP, SimConnect.SIMCONNECT_GROUP_PRIORITY_HIGHEST);
-        }
-
         private void InitRecieve()
         {
             _simConnect.MapClientDataNameToID("PMDG_NGX_Data", CLIENT_DATA_IDS.PMDG_NGX_DATA_ID);
@@ -100,18 +87,49 @@ namespace _737Connector
             _simConnect.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, PMDG.PMDG_NGX_Data>(CLIENT_DATA_IDS.PMDG_NGX_DATA_DEFINITION);
             _simConnect.OnRecvClientData += simconnect_RecvClientDataEvent;
         }
+        public void RegisterEvents()
+        {
+            foreach (PMDG.PMDGEvents evnt in Enum.GetValues(typeof(PMDG.PMDGEvents)))
+            {
+                _simConnect.MapClientEventToSimEvent(evnt, $"#{(int)evnt}");
+                _simConnect.AddClientEventToNotificationGroup(NOTIFICATION_GROUPS.MAINGROUP, evnt, false);
+            }
+            _simConnect.SetNotificationGroupPriority(NOTIFICATION_GROUPS.MAINGROUP, SimConnect.SIMCONNECT_GROUP_PRIORITY_HIGHEST);
+        }
+
+
+        public void SendEvent(PMDG.PMDGEvents evnt, uint value)
+        {
+            _simConnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, evnt, value, PMDG.SIMCONNECT_GROUP_PRIORITY.HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        }
+
+       
+
+      
 
         void simconnect_RecvClientDataEvent(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
         {
 
-           // switch ((DATA_REQUEST_ID)data.dwRequestID)
-          //  {
-             //   case DATA_REQUEST_ID.DATA_REQUEST:
+     
                     PMDG.PMDG_NGX_Data s1 = (PMDG.PMDG_NGX_Data)data.dwData[0];
                     _setTextInvoker(Form1.UiChanger.textBoxMcpAlt,s1.MCP_Altitude.ToString());
-                    port.Write(IntStringToByte(s1.MCP_Altitude.ToString()),0,5);
-                //    break;
-           // }
+                     _setRichTextBoxInvoker(Form1.UiChanger.richTextBox1, s1.MCP_annunCMD_A.ToString()+ s1.MCP_annunCMD_B.ToString());
+                    //port.Write(IntStringToByte(s1.MCP_Altitude.ToString()),0,5);
+            byte[] arr =
+            {
+                s1.MCP_annunCMD_A,
+                s1.MCP_annunATArm,
+                s1.MCP_annunSPEED,
+                s1.MCP_annunVNAV,
+                s1.MCP_annunLVL_CHG,
+                s1.MCP_annunHDG_SEL,
+                s1.MCP_annunLNAV,
+                s1.MCP_annunVOR_LOC
+            };
+            int output = ByteArrayToLedPacket(arr);
+            byte[] to_send = {0xFA, Convert.ToByte(output)};
+            //port.Write(to_send,0,to_send.Length);
+
         }
 
         public static byte[] IntStringToByte(string s)
@@ -135,8 +153,7 @@ namespace _737Connector
             byte[] ret = new byte[len/2];
             for (int i = 0; i < len; i++)
             {
-                byte a = Encode((s[i] - '0'), s[i + 1] - '0');
-                ret[i] = a;
+                ret[i] = Encode(s[i] - '0', s[i + 1] - '0');
                 i++;
             }
             return ret;
@@ -153,6 +170,19 @@ namespace _737Connector
         {
             return new[] { todecode >> 4, todecode & 0b00001111 };
         }
+
+        public int ByteArrayToLedPacket(byte[] arr)
+        {
+            int ret = 0;
+            if (arr.Length > 8)
+                throw new InvalidOperationException("Array is longer than expected");
+            for (int i = 0; i < 8; i++)
+            {
+                ret |= arr[i] << i;
+            }
+            return ret;
+        }
+
 
     }
 }
