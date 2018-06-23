@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Linq;
 using System.Windows.Forms;
 using LockheedMartin.Prepar3D.SimConnect;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 
 namespace _737Connector
@@ -19,6 +21,7 @@ namespace _737Connector
         private SimConnect simconnect = null;
         private Connector connector = null;
 
+        private Serial serial = new Serial("COM3",115200);
         //WinProccess to control SimConnect
         protected override void DefWndProc(ref Message m)
         {
@@ -209,6 +212,65 @@ namespace _737Connector
 
         private void richResponse_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnSerialConnect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                serial.Connect();
+                richTextBoxSerialTab.Text += "Serial port is connected" + '\n';
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+           
+            }       
+        }
+
+        private void btnSerialSend_Click(object sender, EventArgs e)
+        {
+            string text = textBoxSerialSend.Text;
+            byte[] bytes = Serial.StringToByteArray(text);
+//            Console.WriteLine(bytes.Length);
+            serial.Write(bytes,bytes.Length);
+            richTextBoxSerialTab.Text += "Bytes sent:" + '\n';
+            richTextBoxSerialTab.Text += BitConverter.ToString(bytes) + '\n';
+
+                        byte[] rxbuffer = new byte[3];
+            Task.Delay(5);
+//            byte[] Received_Byte = new byte[10];
+//            for (int i = 0; i < 10; i++)
+//            {
+//                Received_Byte[i] = Convert.ToByte(serial.Port.ReadByte());
+//            }
+//
+//            serial.Port.DiscardInBuffer();
+//            Console.WriteLine(serial.Port.ReadLine());
+
+//            int []incoming = new int[3];
+//            for (int i = 0; i < 3; i++)
+//            {
+//                incoming[i] = serial.Port.ReadByte();
+//                Console.WriteLine(incoming[i]);
+//            }
+//            Console.WriteLine(serial.Port.BytesToRead);
+
+
+//            string rx = serial.Port.ReadExisting();
+//            var result = string.Join("", rx.Select(c => ((int)c).ToString("X2")));
+            richTextBoxSerialTab.Text += "Received" + '\n';
+            //            richTextBoxSerialTab.Text += BitConverter.ToString(Received_Byte) + '\n';
+            //            Console.WriteLine(result);
+
+
+            int bytes1 = serial.Port.BytesToRead;
+            byte[] buffer = new byte[bytes1];
+            serial.Port.Read(buffer, 0, bytes1);
+
+            Console.WriteLine(BitConverter.ToString(buffer));
+            serial.Port.DiscardInBuffer();
 
         }
     }
