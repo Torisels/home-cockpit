@@ -81,6 +81,7 @@
     <Compile Include="PMDG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushButton.cs" />
     <Compile Include="RotaryEncoder.cs" />
     <Compile Include="Serial.cs" />
     <EmbeddedResource Include="Form1.resx">

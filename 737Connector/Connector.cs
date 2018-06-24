@@ -101,6 +101,7 @@ namespace _737Connector
         public void SendEvent(PMDG.PMDGEvents evnt, uint value)
         {
             _simConnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, evnt, value, PMDG.SIMCONNECT_GROUP_PRIORITY.HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+            
         }
 
        

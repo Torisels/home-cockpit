@@ -10,7 +10,7 @@ namespace _737Connector
     {
         enum Pins 
         {
-            PC7_2,
+            PC7_2=1,
             PA0_2,
             PB5_2,
             PB4_2,
@@ -111,6 +111,11 @@ namespace _737Connector
             PB6_3,
             PA3_3
         }
+
+        private List<byte> MCU_1 = new List<byte>();
+        private List<byte> MCU_2 = new List<byte>();
+        private List<byte> MCU_3 = new List<byte>();
+        private List<byte> MCU_4 = new List<byte>();
 
     }
 }
