@@ -324,7 +324,7 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button btnSerialSend;
         private System.Windows.Forms.TextBox textBoxSerialSend;
-        private System.Windows.Forms.RichTextBox richTextBoxSerialTab;
+        public System.Windows.Forms.RichTextBox richTextBoxSerialTab;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSerialConnect;
     }

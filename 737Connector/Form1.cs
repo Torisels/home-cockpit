@@ -21,7 +21,7 @@ namespace _737Connector
         private SimConnect simconnect = null;
         private Connector connector = null;
 
-        private Serial serial = new Serial("COM3",115200);
+        private Serial serial = new Serial("COM3",9600);
         //WinProccess to control SimConnect
         protected override void DefWndProc(ref Message m)
         {
@@ -174,9 +174,9 @@ namespace _737Connector
             }
             else
             {
-                UiChanger.richTextBox1.Text = text;
-                UiChanger.richTextBox1.SelectionStart = UiChanger.richTextBox1.Text.Length;
-                UiChanger.richTextBox1.ScrollToCaret();
+                UiChanger.richTextBoxSerialTab.Text = text;
+                UiChanger.richTextBoxSerialTab.SelectionStart = UiChanger.richTextBox1.Text.Length;
+                UiChanger.richTextBoxSerialTab.ScrollToCaret();
             }
         }
 
@@ -221,6 +221,20 @@ namespace _737Connector
             {
                 serial.Connect();
                 richTextBoxSerialTab.Text += "Serial port is connected" + '\n';
+                var Re = new RotaryEncoder(new Object(),1,2);
+                Task.Factory.StartNew(() =>
+                    {
+                        
+                        while (true)
+                        {
+                            serial.Port.Write(new byte[1] { 0xFA }, 0, 1);
+                            Task.Delay(1);
+                            Re.tick(serial.Port.ReadByte());
+                            SetTextRich(richTextBoxSerialTab, Re.GetValue().ToString() + '\n');
+                            Task.Delay(1);
+                        }
+                    }
+                );
             }
             catch (Exception exception)
             {

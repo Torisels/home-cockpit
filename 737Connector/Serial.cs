@@ -34,6 +34,11 @@ namespace _737Connector
         {
             return (b & (1 << pos)) != 0;
         }
+
+        public static bool IsBitSet(int b, int pos)
+        {
+            return (b & (1 << pos)) != 0;
+        }
         public static byte BitsToRegisterBools(bool[] bools) //LSB is first, MSB is last
         {
             int a = 0;

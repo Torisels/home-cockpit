@@ -32,7 +32,7 @@ namespace _737Connector
             _pos2 = bitPos2;
         }
 
-        public void tick(byte register)
+        public void tick(int register)
         {
             int thisState = GetBit(register, _pos1) | GetBit(register, _pos2) << 1;
 
@@ -53,7 +53,7 @@ namespace _737Connector
             } 
         }
 
-        public static int GetBit( byte b, int bitNumber)
+        public static int GetBit(int b, int bitNumber)
         {
            return Convert.ToInt32(Serial.IsBitSet(b,bitNumber));
         }

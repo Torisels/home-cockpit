@@ -1,4 +1,4 @@
-﻿#define FLAG_PC_SETUP_RX_MODE = 0xAB;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
