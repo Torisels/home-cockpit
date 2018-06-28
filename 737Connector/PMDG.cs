@@ -247,12 +247,14 @@ namespace _737Connector
             public short MCP_VertSpeed;
             public byte MCP_VertSpeedBlank;
 
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)] public byte[] MCP_FDSw;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+            public byte[] MCP_FDSw;
             public byte MCP_ATArmSw;
             public byte MCP_BankLimitSel; // 0: 10 ... 4: 30
             public byte MCP_DisengageBar;
 
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)] public byte[] MCP_annunFD;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+            public byte[] MCP_annunFD;
             public byte MCP_annunATArm;
             public byte MCP_annunN1;
             public byte MCP_annunSPEED;

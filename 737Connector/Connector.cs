@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LockheedMartin.Prepar3D.SimConnect;
@@ -66,6 +69,7 @@ namespace _737Connector
         public Connector(SimConnect sc, TextInvokerDelegate setTextInvoker,RichTextBoxInvokerDelegate rd)
         {
             _setTextInvoker = setTextInvoker;
+//            _setTextInvoker
             _setRichTextBoxInvoker = rd;
             try
             {
@@ -113,23 +117,49 @@ namespace _737Connector
 
      
                     PMDG.PMDG_NGX_Data s1 = (PMDG.PMDG_NGX_Data)data.dwData[0];
-                    _setTextInvoker(Form1.UiChanger.textBoxMcpAlt,s1.MCP_Altitude.ToString());
-                     _setRichTextBoxInvoker(Form1.UiChanger.richTextBox1, s1.MCP_annunCMD_A.ToString()+ s1.MCP_annunCMD_B.ToString());
-                    //port.Write(IntStringToByte(s1.MCP_Altitude.ToString()),0,5);
-            byte[] arr =
-            {
-                s1.MCP_annunCMD_A,
-                s1.MCP_annunATArm,
-                s1.MCP_annunSPEED,
-                s1.MCP_annunVNAV,
-                s1.MCP_annunLVL_CHG,
-                s1.MCP_annunHDG_SEL,
-                s1.MCP_annunLNAV,
-                s1.MCP_annunVOR_LOC
-            };
-            int output = ByteArrayToLedPacket(arr);
-            byte[] to_send = {0xFA, Convert.ToByte(output)};
-            //port.Write(to_send,0,to_send.Length);
+            //                    _setTextInvoker(Form1.UiChanger.textBoxMcpAlt,s1.MCP_Altitude.ToString());
+            //                     _setRichTextBoxInvoker(Form1.UiChanger.richTextBox1, s1.MCP_annunCMD_A.ToString()+ s1.MCP_annunCMD_B.ToString());
+            //port.Write(IntStringToByte(s1.MCP_Altitude.ToString()),0,5);
+            //            lock (Globals.Lock)
+            //            {
+            //            if (Globals.DataRecieved)
+            //            {
+            //                Globals.EventsData.Add(s1.MCP_annunCMD_A);
+            //                Globals.DataRecieved = false;
+            //            }
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            Globals.CMDA =Convert.ToBoolean( s1.MCP_annunCMD_A);
+            Globals.AnnunArr[0] = s1.MCP_annunCMD_A;
+            Globals.AnnunArr[1] = s1.MCP_annunATArm;
+            Globals.AnnunArr[2] = s1.MCP_annunSPEED;
+            Globals.AnnunArr[3] = s1.MCP_annunVNAV;
+            Globals.AnnunArr[4] = s1.MCP_annunLVL_CHG;
+            Globals.AnnunArr[5] = s1.MCP_annunLNAV;
+            Globals.AnnunArr[6] = s1.MCP_annunCMD_B;
+            Globals.AnnunArr[7] = s1.MCP_annunCMD_A;
+            Globals.AnnunArr[8] = s1.MCP_annunCMD_A;
+            Globals.AnnunArr[9] = s1.MCP_annunCMD_B;
+            //Thread.Sleep(100);
+            stopwatch.Stop();
+           // Console.WriteLine(stopwatch.ElapsedMilliseconds);
+            var d = stopwatch.ElapsedMilliseconds;
+            Console.WriteLine("xd");
+
+
+            //                Globals.EventsData.Add(s1.MCP_annunATArm);
+            //                Globals.EventsData.Add(s1.MCP_annunSPEED);
+            //                Globals.EventsData.Add(s1.MCP_annunVNAV);
+            //                Globals.EventsData.Add(s1.MCP_annunLVL_CHG);
+            //                Globals.EventsData.Add(s1.MCP_annunHDG_SEL);
+            //                Globals.EventsData.Add(s1.MCP_annunLNAV);
+            //                Globals.EventsData.Add(s1.);
+            //                Globals.EventsData.Add(s1.MCP_annunAPP);
+            //                Globals.EventsData.Add(s1.MCP_annunVS);
+            //                Globals.EventsData.Add(s1.MCP_annunCMD_A);
+            //                Globals.EventsData.Add(s1.MCP_annunCWS_A);
+            //                Globals.EventsData.Add(s1.MCP_annunCMD_B);
+            //                Globals.EventsData.Add(s1.MCP_annunCWS_B);
+            //}
 
         }
 

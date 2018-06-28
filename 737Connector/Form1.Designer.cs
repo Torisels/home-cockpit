@@ -46,11 +46,13 @@
             this.ColumnMode = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.ColumnEvent = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.richTextBoxSerialTab = new System.Windows.Forms.RichTextBox();
-            this.textBoxSerialSend = new System.Windows.Forms.TextBox();
-            this.btnSerialSend = new System.Windows.Forms.Button();
             this.btnSerialConnect = new System.Windows.Forms.Button();
+            this.btnSerialSend = new System.Windows.Forms.Button();
+            this.textBoxSerialSend = new System.Windows.Forms.TextBox();
+            this.richTextBoxSerialTab = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -160,6 +162,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox2);
+            this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.richTextBox1);
             this.tabPage1.Controls.Add(this.textBoxMcpAlt);
             this.tabPage1.Controls.Add(this.label1);
@@ -234,29 +238,15 @@
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // btnSerialConnect
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Serial Control";
-            // 
-            // richTextBoxSerialTab
-            // 
-            this.richTextBoxSerialTab.Location = new System.Drawing.Point(421, 13);
-            this.richTextBoxSerialTab.Name = "richTextBoxSerialTab";
-            this.richTextBoxSerialTab.Size = new System.Drawing.Size(247, 96);
-            this.richTextBoxSerialTab.TabIndex = 1;
-            this.richTextBoxSerialTab.Text = "";
-            // 
-            // textBoxSerialSend
-            // 
-            this.textBoxSerialSend.Location = new System.Drawing.Point(8, 89);
-            this.textBoxSerialSend.Name = "textBoxSerialSend";
-            this.textBoxSerialSend.Size = new System.Drawing.Size(240, 20);
-            this.textBoxSerialSend.TabIndex = 2;
+            this.btnSerialConnect.Location = new System.Drawing.Point(8, 345);
+            this.btnSerialConnect.Name = "btnSerialConnect";
+            this.btnSerialConnect.Size = new System.Drawing.Size(75, 23);
+            this.btnSerialConnect.TabIndex = 4;
+            this.btnSerialConnect.Text = "Connect";
+            this.btnSerialConnect.UseVisualStyleBackColor = true;
+            this.btnSerialConnect.Click += new System.EventHandler(this.btnSerialConnect_Click);
             // 
             // btnSerialSend
             // 
@@ -268,15 +258,49 @@
             this.btnSerialSend.UseVisualStyleBackColor = true;
             this.btnSerialSend.Click += new System.EventHandler(this.btnSerialSend_Click);
             // 
-            // btnSerialConnect
+            // textBoxSerialSend
             // 
-            this.btnSerialConnect.Location = new System.Drawing.Point(8, 345);
-            this.btnSerialConnect.Name = "btnSerialConnect";
-            this.btnSerialConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnSerialConnect.TabIndex = 4;
-            this.btnSerialConnect.Text = "Connect";
-            this.btnSerialConnect.UseVisualStyleBackColor = true;
-            this.btnSerialConnect.Click += new System.EventHandler(this.btnSerialConnect_Click);
+            this.textBoxSerialSend.Location = new System.Drawing.Point(8, 89);
+            this.textBoxSerialSend.Name = "textBoxSerialSend";
+            this.textBoxSerialSend.Size = new System.Drawing.Size(240, 20);
+            this.textBoxSerialSend.TabIndex = 2;
+            // 
+            // richTextBoxSerialTab
+            // 
+            this.richTextBoxSerialTab.Location = new System.Drawing.Point(421, 13);
+            this.richTextBoxSerialTab.Name = "richTextBoxSerialTab";
+            this.richTextBoxSerialTab.Size = new System.Drawing.Size(247, 96);
+            this.richTextBoxSerialTab.TabIndex = 1;
+            this.richTextBoxSerialTab.Text = "";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Serial Control";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(49, 325);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 11;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(176, 325);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(80, 17);
+            this.checkBox2.TabIndex = 12;
+            this.checkBox2.Text = "checkBox2";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -327,6 +351,8 @@
         public System.Windows.Forms.RichTextBox richTextBoxSerialTab;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSerialConnect;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

@@ -181,7 +181,18 @@ namespace _737Connector
                 UiChanger.richTextBoxSerialTab.ScrollToCaret();
             }
         }
-
+        public void SetCheckBox(CheckBox cBox, bool value)
+        {
+            if (cBox.InvokeRequired)
+            {
+                Action<CheckBox, bool> method = SetCheckBox;
+                UiChanger.BeginInvoke(method, cBox, value);
+            }
+            else
+            {
+                UiChanger.checkBox1.Checked = value;
+            }
+        }
 
 
 
@@ -241,7 +252,23 @@ namespace _737Connector
                             Re2.tick(buffer);
 //                            Re3.tick(buffer);
                            // SetTextRich(richTextBoxSerialTab, Re.getPos().ToString() + '\n');
-                            Task.Delay(10);
+                            Task.Delay(5);
+//                            lock (Globals.Lock)
+//                            {
+//                            if (!Globals.DataRecieved)
+//                            {
+                            var a = Globals.AnnunArr;
+//                                SetText(textBoxMcpAlt, Globals.EventsData[0].ToString());
+                                Globals.DataRecieved = true;
+                            //}
+                               // SetCheckBox(this.checkBox1,Convert.ToBoolean(Globals.EventsData[0]));
+                              
+//                                foreach (var b in Globals.EventsData)
+//                                {
+//                                    Console.WriteLine(b.ToString());
+//                                }
+                            //}
+                            
                         }
                     }
                 );
