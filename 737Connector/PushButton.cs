@@ -8,60 +8,34 @@ using System.Threading.Tasks;
 
 namespace _737Connector
 {
-    class PushButton
+    class PushButton : SimAction
     {
-        List<int> ActiveRegisters = new List<int>();
-        Dictionary<int,byte> ActiveRegistersBitMasksDictionary = new Dictionary<int, byte>();
-        private readonly Connector _connector;
+        
 
-
-        private List<byte> CurrentRegisters = new List<byte>();
-
-        public PushButton(Dictionary<int,byte> activeRegistersBitMasks, Connector Connector)
+        public PushButton(int id,Connector connector,List<int> activeRegisters,List<HashSet<int>> UsedBitsPerRegister):base(connector,activeRegisters,UsedBitsPerRegister)
         {
-            ActiveRegistersBitMasksDictionary = activeRegistersBitMasks;
-            _connector = Connector;
+            Id = id;
+            Type = "PushButton";
+            IsSingleInstance = true;
         }
-        public void Update(byte[] registers)
+        public override void Update(byte[] registers)
         {
             List<byte> NewRegisters = new List<byte>();
-//            List<int> Delta = new List<int>();
 
-            foreach (var index in ActiveRegisters)
+            foreach (var index in _activeRegistersIndexes)
             {
                 NewRegisters.Add(Convert.ToByte(~registers[index]));
             }
-
-            if(NewRegisters.Count!=CurrentRegisters.Count)
-                throw new InRowChangingEventException();
-
             for (int i = 0; i < NewRegisters.Count; i++)
             {
-                var array = new BitArray(/*NewRegisters[i] ^ */CurrentRegisters[i]);//todo to be changed
-                for (int j = 0; j < array.Count; j++)
+                var bitsInIthRegister = new BitArray(NewRegisters[i]);
+                for (int j = 0; j < bitsInIthRegister.Count; j++)
                 {
-                    if(array[i])
-                        _connector.SendEvent((PMDG.PMDGEvents)getEventByRegister(ActiveRegisters[i],j),PMDG.MOUSE_FLAG_LEFTSINGLE);
+                    if(bitsInIthRegister[j]&&UsedBits[i].Contains(j))
+                        _connector.SendEvent((PMDG.PMDGEvents)Globals.Registers[_activeRegistersIndexes[i],j],PMDG.MOUSE_FLAG_LEFTSINGLE);
                 }
             }
-            CurrentRegisters = NewRegisters;
-
-//            BitArray barray = new BitArray(Delta);
-//
-//            for (int i = 0; i <barray.Count; i++)
-//            {
-//                if(barray[i])
-//                    _connector.SendEvent((PMDG.PMDGEvents)1,PMDG.MOUSE_FLAG_LEFTSINGLE);
-//            }
-
-
-        }
-
-
-        public int getEventByRegister(int registerId, int bitPos)
-        {
-            return 1;//todo to be implemented
-
+            _currentRegisters = NewRegisters;
         }
     }
 }

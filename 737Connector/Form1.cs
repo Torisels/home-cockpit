@@ -55,6 +55,8 @@ namespace _737Connector
             byte a = Serial.BitsToRegisterBools(table);
             byte[] b = {0xFA, a};
             Serial.PrintBits(a);
+
+            var SHelper = new SqlHelper();
         }
 
 
