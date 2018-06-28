@@ -8,9 +8,15 @@ namespace _737Connector
 {
     class RotaryEncoder
     {
-        private readonly object _lockobj;
-        private readonly int _pos1;
-        private readonly int _pos2;
+
+        private  int _reg1;
+        private  int _reg2;
+
+        private  int _pos1;
+        private  int _pos2;
+
+        private readonly int _eventId;
+        private readonly Connector _connector;
 
         private int _oldState = 3;
         private int _position;
@@ -25,29 +31,36 @@ namespace _737Connector
             -1,  0,  0,  1,
             0,  1, -1,  0  };
 
-        public RotaryEncoder(object lockObject,int bitPos1,int bitPos2)
+        public RotaryEncoder(int eventId, Connector connector, int reg1, int reg2, int pos1, int pos2)
         {
-            _lockobj = lockObject;
-            _pos1 = bitPos1;
-            _pos2 = bitPos2;
+            _eventId = eventId;
+            _connector = connector;
+            _reg1 = reg1;
+            _reg2 = reg2;
+            _pos1 = pos1;
+            _pos2 = pos2;
         }
 
-        public void tick(int register)
+        public void tick(byte[] registers)
         {
-            int thisState = GetBit(register, _pos1) | GetBit(register, _pos2) << 1;
+            var thisState = GetBit(registers[_reg1], _pos1) | GetBit(registers[_reg2], _pos2) << 1;
 
             if (_oldState != thisState)
             {
-                
-                int a = thisState | (_oldState << 2);
         
-                _position += _knobdir[a];
+                _position += _knobdir[thisState | (_oldState << 2)];
 
-                //               
+                             
                 if (thisState == LATCH_STATE)
                 {
-                    _positionExt = _position >> 2;
-                    Console.WriteLine(_positionExt);
+                    //Console.WriteLine("Last Pos:"+_positionExt);
+                    int _tempPos = _position >> 2;
+                    //Console.WriteLine(_tempPos);
+                    if(_tempPos>_positionExt)
+                        Form1.Connector.SendEvent((PMDG.PMDGEvents) _eventId,PMDG.MOUSE_FLAG_LEFTSINGLE);
+                    else if(_tempPos<_positionExt)
+                        Form1.Connector.SendEvent((PMDG.PMDGEvents) _eventId, PMDG.MOUSE_FLAG_RIGHTSINGLE);
+                    _positionExt = _tempPos;
                 }
                 _oldState = thisState;
             } 
@@ -58,10 +71,11 @@ namespace _737Connector
            return Convert.ToInt32(Serial.IsBitSet(b,bitNumber));
         }
 
-        public int GetValue()
+        public int getPos()
         {
             return _positionExt;
         }
+        
 
     }
 }

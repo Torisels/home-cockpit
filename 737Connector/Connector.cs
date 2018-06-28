@@ -10,7 +10,7 @@ using LockheedMartin.Prepar3D.SimConnect;
 
 namespace _737Connector
 {
-    class Connector
+    public class Connector
     {
         private SimConnect _simConnect;
 

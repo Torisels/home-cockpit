@@ -19,7 +19,7 @@ namespace _737Connector
 
         // SimConnect object 
         private SimConnect simconnect = null;
-        private Connector connector = null;
+        public static Connector Connector = null;
 
         private Serial serial = new Serial("COM3",9600);
         //WinProccess to control SimConnect
@@ -116,7 +116,7 @@ namespace _737Connector
                     // listen to exceptions 
                     simconnect.OnRecvException += simconnect_OnRecvException;
 
-                    connector = new Connector(simconnect, SetText,SetTextRich);
+                    Connector = new Connector(simconnect, SetText,SetTextRich);
 
                 }
                 catch (COMException ex)
@@ -198,7 +198,7 @@ namespace _737Connector
             int evet = Convert.ToInt32(textBoxEventEnter.Text);
            // int val = Convert.ToInt16(splitted[1]);
             //Console.WriteLine(evet+" "+val);
-            connector.SendEvent((PMDG.PMDGEvents)evet, (uint)Connector.MOUSE_EVENTS.MOUSE_FLAG_LEFTSINGLE);
+            Connector.SendEvent((PMDG.PMDGEvents)evet, (uint)Connector.MOUSE_EVENTS.MOUSE_FLAG_LEFTSINGLE);
 
         }
 
@@ -223,17 +223,25 @@ namespace _737Connector
             {
                 serial.Connect();
                 richTextBoxSerialTab.Text += "Serial port is connected" + '\n';
-                var Re = new RotaryEncoder(new Object(),1,2);
+//                var Re = new RotaryEncoder((int)PMDG.PMDGEvents.EVT_MCP_HEADING_SELECTOR, Connector,0,0,1,3);
+//                var Re1 = new RotaryEncoder((int)PMDG.PMDGEvents.EVT_MCP_ALTITUDE_SELECTOR, Connector,0,0,1,2);
+                var Re2 = new RotaryEncoder((int)PMDG.PMDGEvents.EVT_MCP_SPEED_SELECTOR, Connector,0,0,2,1);
+//                var Re3 = new RotaryEncoder((int)PMDG.PMDGEvents.EVT_MCP_COURSE_SELECTOR_R, Connector,0,0,1,2);
                 Task.Factory.StartNew(() =>
                     {
                         
                         while (true)
                         {
-                            serial.Port.Write(new byte[1] { 0xFA }, 0, 1);
-                            Task.Delay(1);
-                            Re.tick(serial.Port.ReadByte());
-                            SetTextRich(richTextBoxSerialTab, Re.GetValue().ToString() + '\n');
-                            Task.Delay(1);
+                            byte[] buffer = new byte[1];
+                            serial.Port.Write(new byte[] { 0xFA }, 0, 1);
+                            Task.Delay(10);
+                            serial.Port.Read(buffer, 0, 1);
+//                            Re.tick(buffer);
+//                            Re1.tick(buffer);
+                            Re2.tick(buffer);
+//                            Re3.tick(buffer);
+                           // SetTextRich(richTextBoxSerialTab, Re.getPos().ToString() + '\n');
+                            Task.Delay(10);
                         }
                     }
                 );

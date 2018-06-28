@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace _737Connector
 {
-    class PMDG
+    public class PMDG
     {
         [StructLayout(LayoutKind.Sequential, Pack = 4, CharSet = CharSet.Ansi)]
         public struct PMDG_NGX_Data
