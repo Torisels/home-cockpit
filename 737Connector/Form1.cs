@@ -55,8 +55,14 @@ namespace _737Connector
             byte a = Serial.BitsToRegisterBools(table);
             byte[] b = {0xFA, a};
             Serial.PrintBits(a);
+            var db = new Db(Connector);
+            var encoders = db.InitializeEncodersFromDb();
+            //var SHelper = new SqlHelper();
+            var pins = db.GetRegistersAndPins();
 
-            var SHelper = new SqlHelper();
+            db.InitializeGlobalPinArray();
+            var g = Globals.Registers;
+
         }
 
 
@@ -259,7 +265,7 @@ namespace _737Connector
 //                            {
                             var a = Globals.AnnunArr;
 //                                SetText(textBoxMcpAlt, Globals.EventsData[0].ToString());
-                                Globals.DataRecieved = true;
+                                //Globals.DataRecieved = true;
                             //}
                                // SetCheckBox(this.checkBox1,Convert.ToBoolean(Globals.EventsData[0]));
                               

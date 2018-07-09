@@ -40,6 +40,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ColumnPin = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,13 +53,21 @@
             this.textBoxSerialSend = new System.Windows.Forms.TextBox();
             this.richTextBoxSerialTab = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.EventId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EventName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BoardId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pin1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pin2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InvertPins = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // richResponse
@@ -154,6 +164,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -177,6 +188,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(176, 325);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(80, 17);
+            this.checkBox2.TabIndex = 12;
+            this.checkBox2.Text = "checkBox2";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(49, 325);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 11;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -282,25 +313,67 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Serial Control";
             // 
-            // checkBox1
+            // tabPage4
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(49, 325);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.tabPage4.Controls.Add(this.dataGridView2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(674, 412);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // dataGridView2
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(176, 325);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(80, 17);
-            this.checkBox2.TabIndex = 12;
-            this.checkBox2.Text = "checkBox2";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.EventId,
+            this.EventName,
+            this.BoardId,
+            this.Pin1,
+            this.Pin2,
+            this.InvertPins});
+            this.dataGridView2.Location = new System.Drawing.Point(6, 25);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.Size = new System.Drawing.Size(633, 150);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // EventId
+            // 
+            this.EventId.FillWeight = 50F;
+            this.EventId.HeaderText = "EventId";
+            this.EventId.Name = "EventId";
+            this.EventId.ReadOnly = true;
+            // 
+            // EventName
+            // 
+            this.EventName.HeaderText = "EventName";
+            this.EventName.Name = "EventName";
+            this.EventName.ReadOnly = true;
+            // 
+            // BoardId
+            // 
+            this.BoardId.HeaderText = "BoardId";
+            this.BoardId.Name = "BoardId";
+            // 
+            // Pin1
+            // 
+            this.Pin1.FillWeight = 50F;
+            this.Pin1.HeaderText = "Pin1";
+            this.Pin1.Name = "Pin1";
+            // 
+            // Pin2
+            // 
+            this.Pin2.FillWeight = 50F;
+            this.Pin2.HeaderText = "Pin2";
+            this.Pin2.Name = "Pin2";
+            // 
+            // InvertPins
+            // 
+            this.InvertPins.FillWeight = 50F;
+            this.InvertPins.HeaderText = "InvertPins";
+            this.InvertPins.Name = "InvertPins";
             // 
             // Form1
             // 
@@ -322,6 +395,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -353,6 +428,14 @@
         private System.Windows.Forms.Button btnSerialConnect;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EventId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EventName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BoardId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pin1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pin2;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn InvertPins;
     }
 }
 

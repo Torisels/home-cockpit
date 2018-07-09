@@ -237,7 +237,8 @@ namespace _737Connector
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)] public byte[] EFIS_RangeSel; // 0: 5 ... 7: 640
 
             // Mode control panel
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)] public ushort[] MCP_Course;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+            public ushort[] MCP_Course;
             public float MCP_IASMach; // Mach if < 10.0
             public byte MCP_IASBlank;
             public byte MCP_IASOverspeedFlash;

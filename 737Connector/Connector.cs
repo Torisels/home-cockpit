@@ -68,9 +68,9 @@ namespace _737Connector
 
         public Connector(SimConnect sc, TextInvokerDelegate setTextInvoker,RichTextBoxInvokerDelegate rd)
         {
-            _setTextInvoker = setTextInvoker;
-//            _setTextInvoker
-            _setRichTextBoxInvoker = rd;
+           _setTextInvoker = setTextInvoker;
+           // _setTextInvoker
+           _setRichTextBoxInvoker = rd;
             try
             {
                 _simConnect = sc;
@@ -128,7 +128,7 @@ namespace _737Connector
             //                Globals.DataRecieved = false;
             //            }
             Stopwatch stopwatch = Stopwatch.StartNew();
-            Globals.CMDA =Convert.ToBoolean( s1.MCP_annunCMD_A);
+           // Globals.CMDA =Convert.ToBoolean( s1.MCP_annunCMD_A);
             Globals.AnnunArr[0] = s1.MCP_annunCMD_A;
             Globals.AnnunArr[1] = s1.MCP_annunATArm;
             Globals.AnnunArr[2] = s1.MCP_annunSPEED;

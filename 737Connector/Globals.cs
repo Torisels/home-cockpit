@@ -12,16 +12,12 @@ namespace _737Connector
         public static int MCUsCount = 4;
         public static int RegistersPerMCU = 4;
         public static int RegistersLength = 8;
-        public static int[,] Registers = new int[BoardsCount * MCUsCount * RegistersPerMCU, RegistersPerMCU];
+        public static int AnnunsInUse;
+        public static int[,] Registers = new int[BoardsCount * MCUsCount * RegistersPerMCU, RegistersLength];
 
         public static List<byte> EventsData = new List<byte>();
 
-        public static object Lock = new object();
-
-        public static bool DataRecieved = true;
-
-        public static bool CMDA = false;
         public static byte[] AnnunArr = new byte[10];
-//        public static Connector conn = new Connector();
+
     }
 }
