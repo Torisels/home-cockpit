@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LockheedMartin.Prepar3D.SimConnect;
 
 namespace _737Connector
 {
@@ -11,6 +12,11 @@ namespace _737Connector
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// 
+
+        const int WM_USER_SIMCONNECT = 0x0402;
+        public static SimConnect simconnect = null;
+        public static Connector Connector = null;
         [STAThread]
         static void Main()
         {
@@ -20,5 +26,8 @@ namespace _737Connector
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
+
+
     }
 }

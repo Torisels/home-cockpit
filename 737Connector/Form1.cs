@@ -63,6 +63,10 @@ namespace _737Connector
             db.InitializeGlobalPinArray();
             var g = Globals.Registers;
 
+
+            var d = db.GetRegistersWithBitsForActionbyType("SW");
+            db.GenerateEventsMap();
+            var e = Globals.EventsMap;
         }
 
 
@@ -81,7 +85,10 @@ namespace _737Connector
             }
         }
 
-       
+        private void SetupControls()
+        {
+
+        }
 
        
 

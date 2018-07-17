@@ -7,18 +7,17 @@ namespace _737Connector
         public int Id;
         public string Type {get; set; }
         public bool IsSingleInstance {get; set; }
-        protected List<int> _activeRegistersIndexes;
-        protected List<byte> _currentRegisters = new List<byte>();
-        protected readonly Connector _connector;
-        protected readonly List<HashSet<int>> UsedBits;
+        protected List<int> ActiveRegistersIndexes;
+     
+        protected readonly Connector Connector;
+      
+        protected readonly Dictionary<int, HashSet<int>> UsedBitsDictionary;
 
 
-
-        protected SimAction(Connector connector, List<int> activeRegistersIndexes, List<HashSet<int>> usedBits)
+        protected SimAction(Connector connector,  Dictionary<int, HashSet<int>> usedBitsDictionary)
         {
-            _connector = connector;
-            _activeRegistersIndexes = activeRegistersIndexes;
-            UsedBits = usedBits;
+            Connector = connector;
+            UsedBitsDictionary = usedBitsDictionary;
         }
 
 

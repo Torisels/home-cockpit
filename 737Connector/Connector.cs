@@ -104,8 +104,7 @@ namespace _737Connector
 
         public void SendEvent(PMDG.PMDGEvents evnt, uint value)
         {
-            _simConnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, evnt, value, PMDG.SIMCONNECT_GROUP_PRIORITY.HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-            
+            _simConnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, evnt, value, PMDG.SIMCONNECT_GROUP_PRIORITY.HIGHEST, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);       
         }
 
        
@@ -128,6 +127,7 @@ namespace _737Connector
             //                Globals.DataRecieved = false;
             //            }
             Stopwatch stopwatch = Stopwatch.StartNew();
+           
            // Globals.CMDA =Convert.ToBoolean( s1.MCP_annunCMD_A);
             Globals.AnnunArr[0] = s1.MCP_annunCMD_A;
             Globals.AnnunArr[1] = s1.MCP_annunATArm;
@@ -139,6 +139,20 @@ namespace _737Connector
             Globals.AnnunArr[7] = s1.MCP_annunCMD_A;
             Globals.AnnunArr[8] = s1.MCP_annunCMD_A;
             Globals.AnnunArr[9] = s1.MCP_annunCMD_B;
+            /*
+             * Seven Segment Displays FROM PMDG
+             */
+            Globals.DisplayArray[0] = s1.MCP_Course[0];
+            Globals.DisplayArray[1] = Convert.ToInt32(s1.MCP_IASMach);
+            Globals.DisplayArray[2] = s1.MCP_Heading;
+            Globals.DisplayArray[3] = s1.MCP_Altitude;
+            Globals.DisplayArray[4] = s1.MCP_VertSpeed;
+            Globals.DisplayArray[5] = s1.MCP_Course[1];
+            Globals.DisplayArray[6] = Convert.ToInt32(s1.AIR_FltAltWindow);
+            Globals.DisplayArray[7] = Convert.ToInt32(s1.AIR_LandAltWindow);
+            /*
+             *
+             */
             //Thread.Sleep(100);
             stopwatch.Stop();
            // Console.WriteLine(stopwatch.ElapsedMilliseconds);
